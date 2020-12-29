@@ -132,15 +132,15 @@ public class script {
             Station t = new Station(cols.get(2).getText(),
                     cols.get(3).getText(),
                     cols.get(1).getText(),
-                    cols.get(4).getAttribute("stationid"),
-                    cols.get(4).getAttribute("companyid")
+                    cols.get(7).getAttribute("stationid"),
+                    cols.get(7).getAttribute("companyid")
             );
 
             data.add(t);
-
-            if(!prev.contains(Integer.parseInt(cols.get(4).getAttribute("companyid"))))
+            //System.out.println(cols.get(4).getText());
+            if(!prev.contains(Integer.parseInt(cols.get(7).getAttribute("companyid"))))
                 newps.add(t);
-            companyIds.add(Integer.parseInt(cols.get(4).getAttribute("companyid")));
+            companyIds.add(Integer.parseInt(cols.get(7).getAttribute("companyid")));
         }
 
         if(prev.size()!=companyIds.size())
@@ -166,7 +166,7 @@ public class script {
         for(Station s:data)
         {
             System.out.print("Fetching details of station: "+" "+s.getStationId()+" "+s.getCompanyId()+" "+s.getName());
-            driver.navigate().to("http://psd.bits-pilani.ac.in/Student/StationproblemBankDetails.aspx?CompanyId="+s.getCompanyId()+"&StationId="+s.getStationId()+"&BatchIdFor=10&PSTypeFor=2");
+            driver.navigate().to("http://psd.bits-pilani.ac.in/Student/StationproblemBankDetails.aspx?CompanyId="+s.getCompanyId()+"&StationId="+s.getStationId()+"&BatchIdFor=10&PSTypeFor=3");
             WebElement stp = null;
             WebElement br = null;
             String des = "";
@@ -304,7 +304,7 @@ public class script {
       //  options.addArguments("--headless");
 //        options.addArguments("--log-level=OFF");
         WebDriver driver = new ChromeDriver(options);
-        
+
         // login
         driver.navigate().to("http://psd.bits-pilani.ac.in");
         WebElement username = driver.findElement(By.id("TxtEmail"));
@@ -314,7 +314,6 @@ public class script {
         pass.clear();
         pass.sendKeys(args[2]);
         driver.findElement(By.id("Button1")).click();
-
         if(args[0].equals("--fetch"))
             fetchData(driver);
         else if(args[0].equals("--upload"))
